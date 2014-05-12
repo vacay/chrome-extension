@@ -1,0 +1,47 @@
+@import '00_variables.styl'
+@import 'nib'
+
+html
+    height 300px
+    width 500px
+    overflow hidden
+
+body
+    position relative
+    font-family "Helvetica Neue",sans-serif
+    font-weight 300
+    font-size 12px
+    height 100%
+    width 100%
+    overflow hidden
+
+main
+    position relative
+    height 100%
+    width 100%
+    background $background
+    z-index 1
+    overflow-y scroll
+
+.btn
+    cursor pointer
+    border 1px solid $border
+    border-radius 2px
+    padding 10px
+
+a
+    cursor pointer
+    color inherit
+
+.cf
+    &:before
+    &:after
+        content " "
+        display table
+    &:after
+        clear both
+
+[ng\cloak]
+[ng-cloak]
+.ng-cloak
+    display none !important

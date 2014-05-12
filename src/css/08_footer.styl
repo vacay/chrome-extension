@@ -1,0 +1,26 @@
+@import '00_variables.styl'
+@import 'nib'
+
+footer
+    position fixed
+    left 0
+    bottom 0
+    right 0
+    height 20px
+    z-index 1
+    background $bg-light
+    border-top 1px solid $border
+    font-family "FF Tisa"
+    font-size 10px
+    color #A6ABAF
+    font-style italic
+    text-transform lowercase
+    font-weight 400
+    padding 2px 10px
+    .user
+    .sign-out
+        float right
+    .user
+        &:after
+            content ' \2014 '
+            margin 0 2px

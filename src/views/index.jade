@@ -1,0 +1,36 @@
+!!! 5
+html(ng-csp)
+    head
+        title.
+            vacay:spyder
+        link(rel='stylesheet', href='app.css')
+        script(src='analytics.js')
+
+    body.ng-cloak(ng-show="initialized")
+        ng-switch(on="authenticated")
+
+            .auth(ng-switch-when="false", ng-controller="SigninCtrl")
+                form(autocomplete='off', ng-submit="signin()", name="signinForm")
+                    .alert.alert-error(ng-class="{'visible' : message}", ng-bind="message")
+                    .inputs
+                        input(name="email", type="email", placeholder="Email", ng-model="email", required)
+                        input(name="password", type="password", placeholder="Password", ng-model="password", required)
+                    button.submit.btn(type='submit', ng-disabled="signinForm.$invalid", ng-class="{'disabled' : signinForm.$invalid}") Sign In
+
+            main(ng-switch-when="true", ng-controller="PageCtrl")
+                ng-progress(loading="loading")
+                table.table
+                    thead.page
+                        tr
+                            td
+                                .title(ng-bind="page.title")
+                    tbody
+                        tr.vitamin(ng-repeat="vitamin in page.vitamins", vitamin)
+                .empty(ng-show="!page.vitamins.length && !loading") No Vitamins
+
+                footer
+                    a.sign-out(ng-click="signout()") Signout
+                    .user(ng-bind="username")
+
+        script(src='vendor.js')
+        script(src='app.js')

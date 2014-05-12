@@ -1,0 +1,7 @@
+td
+    a(ng-switch="isCrated", ng-click="toggleCrate()")
+        i.icon-crate(ng-switch-when="false")
+        i.icon-crate-dark(ng-switch-when="true")
+td
+    span.title(ng-bind="vitamin.title")
+    span.sub-title(ng-bind="vitamin.duration | duration")
