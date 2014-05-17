@@ -125,6 +125,14 @@ module.exports = function (grunt) {
 	},
 	/********************* ASSETS *********************/
 	copy: {
+	    manifest: {
+		files: [
+		    {
+			src: 'manifest.json',
+			dest: 'dist/'
+		    }
+		]
+	    },
 	    images: {
 		files: [
 		    {

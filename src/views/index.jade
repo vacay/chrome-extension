@@ -7,9 +7,10 @@ html(ng-csp)
         script(src='analytics.js')
 
     body.ng-cloak(ng-show="initialized")
+        include notification
         ng-switch(on="authenticated")
 
-            .auth(ng-switch-when="false", ng-controller="SigninCtrl")
+            .auth(ng-switch-when="false", ng-controller="SigninCtrl", ng-class="{shake: shake}")
                 form(autocomplete='off', ng-submit="signin()", name="signinForm")
                     .alert.alert-error(ng-class="{'visible' : message}", ng-bind="message")
                     .inputs
