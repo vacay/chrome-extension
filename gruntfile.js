@@ -49,6 +49,8 @@ module.exports = function (grunt) {
 		    'tmp/vendor.js': [
 			//libraries
 			'components/angular/angular.min.js',
+			'components/crypto-js/rollups/md5.js',
+			'components/stacktrace-js/stacktrace.js',
 
 			//ngModules
 			'components/angular-route/angular-route.min.js',
@@ -61,7 +63,18 @@ module.exports = function (grunt) {
 		files: {
 		    'tmp/app.js' : ['src/ngApp.js', 'src/js/**/*.js', 'src/main.js']
 		}
+	    },
+	    development: {
+		files: {
+		    'tmp/app.js': ['config/development.js', 'tmp/app.js']
+		}
+	    },
+	    production: {
+		files: {
+		    'tmp/app.js': ['config/production.js', 'tmp/app.js']
+		}
 	    }
+
 	},
 	uglify: {
 	    options: {
@@ -175,35 +188,6 @@ module.exports = function (grunt) {
 	},
 	
 	/************************ UTILITY ************************/
-	replace: {
-	    development: {
-		options: {
-		    patterns: [
-			{
-			    match: 'environment',
-			    replacement: 'development'
-			}
-		    ]
-		},
-		files: {
-		    'tmp/app.js': 'tmp/app.js'
-		}
-	    },
-	    production: {
-		options: {
-		    patterns: [
-			{
-			    match: 'environment',
-			    replacement: 'production'
-			}
-		    ]
-		},
-		files: {
-		    'tmp/app.js': 'tmp/app.js'
-		}
-	    }
-	},
-
 	jshint: {
 	    options: {
 		curly: false,
@@ -240,7 +224,7 @@ module.exports = function (grunt) {
 	    },
 	    js: {
 		files: 'src/**/*.js',
-		tasks: ['clean:js', 'concat', 'replace:development', 'copy:js', 'copy:html']
+		tasks: ['clean:js', 'concat:vendor', 'concat:js', 'concat:development', 'copy:js', 'copy:html']
 	    }
 	}
     });
@@ -254,7 +238,6 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-inline-angular-templates');
-    grunt.loadNpmTasks('grunt-replace');
     grunt.loadNpmTasks('grunt-contrib-htmlmin');
     grunt.loadNpmTasks('grunt-contrib-uglify');
 
@@ -266,8 +249,9 @@ module.exports = function (grunt) {
 	'stylus',
 	'cssmin',
 	
-	'concat',
-	'replace:production',
+	'concat:vendor',
+	'concat:js',
+	'concat:production',
 	'uglify',
 	
 	'jade',
@@ -285,8 +269,9 @@ module.exports = function (grunt) {
 	'stylus',
 	'cssmin',
 	
-	'concat',
-	'replace:development',
+	'concat:vendor',
+	'concat:js',
+	'concat:development',
 
 	'jade',
 	'inline_angular_templates',

@@ -1,6 +1,6 @@
 /* global app, chrome */
 
-app.controller('PageCtrl', ['$scope', 'Page', 'Notification', function($scope, Page, Notification) {
+app.controller('PageCtrl', ['$scope', 'Page', 'Notification', '$log', function($scope, Page, Notification, $log) {
     $scope.vitamins = null;
     $scope.page = null;
     $scope.loading = true;
@@ -12,7 +12,7 @@ app.controller('PageCtrl', ['$scope', 'Page', 'Notification', function($scope, P
 	    return;
 	}
 	Page.create(tab.url, function(err, data) {
-	    if (err) console.error(err);
+	    if (err) $log.error(err);
             $scope.page = data;
 	    $scope.loading = false;
 	});

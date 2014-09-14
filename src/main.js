@@ -1,13 +1,10 @@
-/* global document, app */
+/* global document, app, CONFIG */
 
-var environment = '@@environment';
+app.constant('api', CONFIG.api);
 
-if (environment === 'development') {
-    app.constant('api', 'http://localhost:8000/v1');
-} else {
-    app.constant('api', 'https://api.vacay.io/v1');
-    window.analytics.load('u32ikjebq3');
+if (CONFIG.env === 'production') {
+    window.analytics.load(CONFIG.analytics);
     window.analytics.page();
-} 
+}
 	
 angular.bootstrap(document, [app.name]);

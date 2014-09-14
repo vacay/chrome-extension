@@ -18,6 +18,8 @@
 	"angular": "1.2.12",
 	"angular-route": "1.2.12",
 	"angular-animate": "1.2.12",
-	"angular-once": "0.1.6"
+	"angular-once": "0.1.6",
+	"crypto-js": "http://crypto-js.googlecode.com/files/CryptoJS%20v3.1.2.zip",
+	"stacktrace-js": "0.6.2"
     }
 }

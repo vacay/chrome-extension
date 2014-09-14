@@ -2,7 +2,7 @@
 {
     "manifest_version": 2,
     "name": "vacay",
-    "version": "0.1.2",
+    "version": "0.1.3",
     
     "description": "An extension for a music blogging platform with discovery services & cloud-based library.",
     "icons": {
