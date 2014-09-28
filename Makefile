@@ -16,7 +16,7 @@ define release
         j.version = \"$$NEXT_VERSION\";\
         var s = JSON.stringify(j, null, 4);\
         require('fs').writeFileSync('./manifest.json', s);" && \
-    git commit -m "Version $$NEXT_VERSION" -- package.json && \
+    git commit -m "Version $$NEXT_VERSION" -- package.json manifest.json bower.json && \
     git tag "$$NEXT_VERSION" -m "Version $$NEXT_VERSION"
 endef
 
@@ -33,8 +33,10 @@ release-minor:
 release-major:
 	@$(call release,major)
 
-build:
+push:
 	git push
 	git push --tags origin HEAD:master
+
+build: push
 	grunt production
 	zip -r dist.zip dist
