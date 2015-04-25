@@ -11,11 +11,16 @@
         "default_title": "vacay",
         "default_popup": "index.html"
     },
+    "background": {
+	"scripts": ["background.js"]
+    },
     "minimum_chrome_version": "29",
     "permissions": [
         "storage",
         "cookies",
-        "tabs"
+        "tabs",
+	"http://*/",
+	"https://*/"
     ],
     "content_security_policy": "script-src 'self' https://cdn.segment.io https://www.google-analytics.com https://cdn.mxpnl.com; object-src 'self'",
     "short_name": "vacay"

@@ -3,230 +3,230 @@
 module.exports = function (grunt) {
 
     grunt.initConfig({
-	pkg: grunt.file.readJSON('package.json'),
-	clean: {
-	    options: {
-		force: true
-	    },
-	    tmp: {
-		src: ['tmp/**/*']
-	    },
-	    index: {
-		src: ['dist/index.html']
-	    },
-	    css: {
-		src: ['tmp/*.css', 'dist/*.css']
-	    },
-	    js: {
-		src: ['tmp/*.js', 'dist/*.js']
-	    }
-	},
-	
-	/************************ STYLE ************************/
-	stylus: {
-	    options: {
-		compress: true,
-		'include css': true
-	    },
-	    compile: {
-		files: {
-		    'tmp/app.css': 'src/css/*.styl'
-		}
-	    }
-	},
-	cssmin: {
-	    compress: {
-		files: {
-		    'tmp/app.css': 'tmp/app.css'
-		}
-	    }
-	},
-	
-	/************************ JAVASCRIPT ************************/
-	concat: {
-	    vendor: {
-		files: {
-		    'tmp/vendor.js': [
-			//libraries
-			'components/angular/angular.min.js',
-			'components/crypto-js/rollups/md5.js',
-			'components/stacktrace-js/stacktrace.js',
+        pkg: grunt.file.readJSON('package.json'),
+        clean: {
+            options: {
+                force: true
+            },
+            tmp: {
+                src: ['tmp/**/*']
+            },
+            index: {
+                src: ['dist/index.html']
+            },
+            css: {
+                src: ['tmp/*.css', 'dist/*.css']
+            },
+            js: {
+                src: ['tmp/*.js', 'dist/*.js']
+            }
+        },
 
-			//ngModules
-			'components/angular-route/angular-route.min.js',
-			'components/angular-animate/angular-animate.min.js',
-			'components/angular-once/once.js'
-		    ]
-		}
-	    },
-	    js: {
-		files: {
-		    'tmp/app.js' : ['src/ngApp.js', 'src/js/**/*.js', 'src/main.js']
-		}
-	    },
-	    development: {
-		files: {
-		    'tmp/app.js': ['config/development.js', 'tmp/app.js']
-		}
-	    },
-	    production: {
-		files: {
-		    'tmp/app.js': ['config/production.js', 'tmp/app.js']
-		}
-	    }
+        /************************ STYLE ************************/
+        stylus: {
+            options: {
+                compress: true,
+                'include css': true
+            },
+            compile: {
+                files: {
+                    'tmp/app.css': 'src/css/*.styl'
+                }
+            }
+        },
+        cssmin: {
+            compress: {
+                files: {
+                    'tmp/app.css': 'tmp/app.css'
+                }
+            }
+        },
 
-	},
-	uglify: {
-	    options: {
-		beautify: {
-		    ascii_only: true,
-		    inline_script: true
-		}
-	    },
-	    vendor: {
-		files: {
-		    'tmp/vendor.js': ['tmp/vendor.js']
-		}
-	    },
-	    js: {
-		files: {
-		    'tmp/app.js': ['tmp/app.js']
-		}
-	    }
-	},
+        /************************ JAVASCRIPT ************************/
+        concat: {
+            vendor: {
+                files: {
+                    'tmp/vendor.js': [
+                        //libraries
+                        'components/angular/angular.min.js',
+                        'components/crypto-js/rollups/md5.js',
+                        'components/stacktrace-js/stacktrace.js',
 
-	/************************ HTML ************************/
-	jade: {
-	    index: {
-		files: [{
-		    'tmp/index.html': ['src/views/index.jade']
-		}]
-	    },
-	    partials: {
-		files: [{
-		    expand: true,
-		    src: ['partials/**/*.jade', 'layouts/*.jade'],
-		    dest: 'tmp/',
-		    cwd: 'src/views/',
-		    ext: '.html'
-		}]
-	    }
-	},
-	inline_angular_templates: {
-	    index: {
-		options: {
-		    base: 'tmp',
-		    prefix: '/',
-		    selector: 'body',
-		    method: 'prepend'
-		},
-		files: {
-		    'tmp/index.html': ['tmp/partials/**/*.html', 'tmp/layouts/*.html']
-		}
-	    }
-	},
-	htmlmin: {
-	    index: {
-		options: {
-		    collapseWhitespace: true,
-		    removeComments: true
-		},
-		files: {
-		    'dist/index.html': 'dist/index.html'
-		}
-	    }
-	},
-	/********************* ASSETS *********************/
-	copy: {
-	    manifest: {
-		files: [
-		    {
-			src: 'manifest.json',
-			dest: 'dist/'
-		    }
-		]
-	    },
-	    images: {
-		files: [
-		    {
-			expand: true,
-			src: ['assets/**/*'],
-			dest: 'dist/'
-		    }
-		]
-	    },
-	    html: {
-		files: [
-		    {
-			expand: true,
-			flatten: true,
-			src: 'tmp/index.html',
-			dest: 'dist/'
-		    }
-		]
-	    },
-	    js: {
-		files: [
-		    {
-			expand: true,
-			flatten: true,
-			src: ['tmp/app.js', 'tmp/vendor.js', 'src/analytics.js'],
-			dest: 'dist/'
-		    }
-		]
-	    },
-	    css: {
-		files: [
-		    {
-			expand: true,
-			flatten: true,
-			src: 'tmp/app.css',
-			dest: 'dist/'
-		    }
-		]
-	    }
-	},
-	
-	/************************ UTILITY ************************/
-	jshint: {
-	    options: {
-		curly: false,
-		undef: true,
-		unused: true,
-		bitwise: true,
-		freeze: true,
-		immed: true,
-		latedef: true,
-		newcap: true,
-		noempty: true,
-		nonew: true,
-		trailing: true,
-		forin: true,
-		eqeqeq: true,
-		eqnull: true,
-		indent: 2,
-		force: true,
-		quotmark: 'single'
-	    },
-	    main: [
-		'./gruntfile.js',
-		'app/**/*.js'
-	    ]
-	},
-	watch: {
-	    index: {
-		files: 'src/views/**/*.jade',
-		tasks: ['clean:index', 'jade', 'inline_angular_templates', 'copy:html']
-	    },
-	    css: {
-		files: 'src/css/*.styl',
-		tasks: ['clean:css', 'stylus', 'cssmin', 'copy:css', 'copy:html']
-	    },
-	    js: {
-		files: 'src/**/*.js',
-		tasks: ['clean:js', 'concat:vendor', 'concat:js', 'concat:development', 'copy:js', 'copy:html']
-	    }
-	}
+                        //ngModules
+                        'components/angular-route/angular-route.min.js',
+                        'components/angular-animate/angular-animate.min.js',
+                        'components/angular-once/once.js'
+                    ]
+                }
+            },
+            js: {
+                files: {
+                    'tmp/app.js' : ['src/ngApp.js', 'src/js/**/*.js', 'src/main.js']
+                }
+            },
+            development: {
+                files: {
+                    'tmp/app.js': ['config/development.js', 'tmp/app.js']
+                }
+            },
+            production: {
+                files: {
+                    'tmp/app.js': ['config/production.js', 'tmp/app.js']
+                }
+            }
+
+        },
+        uglify: {
+            options: {
+                beautify: {
+                    ascii_only: true,
+                    inline_script: true
+                }
+            },
+            vendor: {
+                files: {
+                    'tmp/vendor.js': ['tmp/vendor.js']
+                }
+            },
+            js: {
+                files: {
+                    'tmp/app.js': ['tmp/app.js']
+                }
+            }
+        },
+
+        /************************ HTML ************************/
+        jade: {
+            index: {
+                files: [{
+                    'tmp/index.html': ['src/views/index.jade']
+                }]
+            },
+            partials: {
+                files: [{
+                    expand: true,
+                    src: ['partials/**/*.jade', 'layouts/*.jade'],
+                    dest: 'tmp/',
+                    cwd: 'src/views/',
+                    ext: '.html'
+                }]
+            }
+        },
+        inline_angular_templates: {
+            index: {
+                options: {
+                    base: 'tmp',
+                    prefix: '/',
+                    selector: 'body',
+                    method: 'prepend'
+                },
+                files: {
+                    'tmp/index.html': ['tmp/partials/**/*.html', 'tmp/layouts/*.html']
+                }
+            }
+        },
+        htmlmin: {
+            index: {
+                options: {
+                    collapseWhitespace: true,
+                    removeComments: true
+                },
+                files: {
+                    'dist/index.html': 'dist/index.html'
+                }
+            }
+        },
+        /********************* ASSETS *********************/
+        copy: {
+            manifest: {
+                files: [
+                    {
+                        src: 'manifest.json',
+                        dest: 'dist/'
+                    }
+                ]
+            },
+            images: {
+                files: [
+                    {
+                        expand: true,
+                        src: ['assets/**/*'],
+                        dest: 'dist/'
+                    }
+                ]
+            },
+            html: {
+                files: [
+                    {
+                        expand: true,
+                        flatten: true,
+                        src: 'tmp/index.html',
+                        dest: 'dist/'
+                    }
+                ]
+            },
+            js: {
+                files: [
+                    {
+                        expand: true,
+                        flatten: true,
+                        src: ['tmp/app.js', 'tmp/vendor.js', 'src/analytics.js', 'src/content.js', 'components/axios/dist/axios.standalone.min.js', 'src/background.js'],
+                        dest: 'dist/'
+                    }
+                ]
+            },
+            css: {
+                files: [
+                    {
+                        expand: true,
+                        flatten: true,
+                        src: 'tmp/app.css',
+                        dest: 'dist/'
+                    }
+                ]
+            }
+        },
+
+        /************************ UTILITY ************************/
+        jshint: {
+            options: {
+                curly: false,
+                undef: true,
+                unused: true,
+                bitwise: true,
+                freeze: true,
+                immed: true,
+                latedef: true,
+                newcap: true,
+                noempty: true,
+                nonew: true,
+                trailing: true,
+                forin: true,
+                eqeqeq: true,
+                eqnull: true,
+                force: true,
+                quotmark: 'single'
+            },
+            main: [
+                './gruntfile.js',
+                'src/**/*.js',
+                '!src/analytics.js'
+            ]
+        },
+        watch: {
+            index: {
+                files: 'src/views/**/*.jade',
+                tasks: ['clean:index', 'jade', 'inline_angular_templates', 'copy:html']
+            },
+            css: {
+                files: 'src/css/*.styl',
+                tasks: ['clean:css', 'stylus', 'cssmin', 'copy:css', 'copy:html']
+            },
+            js: {
+                files: 'src/**/*.js',
+                tasks: ['clean:js', 'concat:vendor', 'concat:js', 'concat:production', 'copy:js', 'copy:html']
+            }
+        }
     });
 
     grunt.loadNpmTasks('grunt-contrib-concat');
@@ -244,41 +244,41 @@ module.exports = function (grunt) {
     grunt.registerTask('lint', ['jshint']);
 
     grunt.registerTask('production', [
-	'clean',
-	
-	'stylus',
-	'cssmin',
-	
-	'concat:vendor',
-	'concat:js',
-	'concat:production',
-	'uglify',
-	
-	'jade',
-	'inline_angular_templates',
-	
-	'copy',
+        'clean',
 
-	'htmlmin'
+        'stylus',
+        'cssmin',
+
+        'concat:vendor',
+        'concat:js',
+        'concat:production',
+        'uglify',
+
+        'jade',
+        'inline_angular_templates',
+
+        'copy',
+
+        'htmlmin'
 
     ]);
 
     grunt.registerTask('default', [
-	'clean',
+        'clean',
 
-	'stylus',
-	'cssmin',
-	
-	'concat:vendor',
-	'concat:js',
-	'concat:development',
+        'stylus',
+        'cssmin',
 
-	'jade',
-	'inline_angular_templates',
+        'concat:vendor',
+        'concat:js',
+        'concat:development',
 
-	'copy',
+        'jade',
+        'inline_angular_templates',
 
-	'htmlmin'
+        'copy',
+
+        'htmlmin'
 
     ]);
 

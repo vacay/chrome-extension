@@ -1,4 +1,4 @@
-/* global app */
+/* global app, analytics */
 
 app.run(['$rootScope', 'Auth', function ($rootScope, Auth) {
 

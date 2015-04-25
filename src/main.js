@@ -1,4 +1,4 @@
-/* global document, app, CONFIG */
+/* global window, angular, document, app, CONFIG */
 
 app.constant('api', CONFIG.api);
 

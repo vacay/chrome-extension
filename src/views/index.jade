@@ -16,22 +16,19 @@ html(ng-csp)
                     .inputs
                         input(name="email", type="email", placeholder="Email", ng-model="email", required)
                         input(name="password", type="password", placeholder="Password", ng-model="password", required)
-                    button.submit.btn(type='submit', ng-disabled="signinForm.$invalid", ng-class="{'disabled' : signinForm.$invalid}") Sign In
+                    button.submit.btn(type='submit', ng-hide="signinForm.$invalid") Sign In
 
             main(ng-switch-when="true", ng-controller="PageCtrl")
-                ng-progress(loading="loading")
-                table.table
-                    thead.page
-                        tr
-                            td
-                                .title(ng-bind="page.title")
-                    tbody
-                        tr.vitamin(ng-repeat="vitamin in page.vitamins", vitamin)
+                ng-progress-circular(ng-show="loading")
+                ul.list(ng-hide="loading")
+                    li
+                        input.pill(placeholder="filter", ng-model="filter.text")
+                    li.item(ng-repeat="vitamin in page.vitamins | filter: filter.text", vitamin)
                 .empty(ng-show="!page.vitamins.length && !loading") No Vitamins
 
                 footer
+                    span.user(ng-bind="username")
                     a.sign-out(ng-click="signout()") Signout
-                    .user(ng-bind="username")
 
         script(src='vendor.js')
         script(src='app.js')

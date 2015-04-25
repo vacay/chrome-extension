@@ -1,0 +1,26 @@
+@import '00_variables.styl'
+@import 'nib'
+
+button
+    cursor pointer
+    border 1px solid $btn-border
+    border-radius 999em
+    transition 100ms background-color,100ms border-color,100ms color
+    &.btn-success
+        color $btn-success
+        border-color $btn-success
+    &:hover
+        &.btn-success
+            border-color #57ad68
+            background #57ad68
+            color white
+            
+    &.active
+        &.btn-success
+            background $btn-success
+            color white
+        &:hover
+            &.btn-success
+                background #468c54
+                border-color #468c54
+    

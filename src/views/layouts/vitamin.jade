@@ -1,7 +1,7 @@
-td
-    a(ng-switch="isCrated", ng-click="toggleCrate()")
-        i.icon-crate(ng-switch-when="false")
-        i.icon-crate-dark(ng-switch-when="true")
-td
-    span.title(ng-bind="vitamin.title")
-    span.sub-title(ng-bind="vitamin.duration | duration")
+button.btn-success(ng-class="{active: isCrated}", ng-click="toggleCrate()")
+    i.icon-crate-dark
+
+.item-info
+    h4.item-title
+        a(ng-href="https://vacay.io/vitamin/{{vitamin.id}}", ng-bind="vitamin.title", target="_blank")
+    p.item-description(ng-bind="vitamin.duration | duration")

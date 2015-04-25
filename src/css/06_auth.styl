@@ -10,6 +10,8 @@
 	.inputs
         border 1px solid $border
         border-radius 2px
+        input
+            border-bottom 1px solid $border
         input:not(:first-child)
             border-bottom none
 	input
@@ -17,8 +19,11 @@
 	.submit
         width 100%
         background white
+        padding 10px
+        border-radius 2px
         margin-top 5px
-        border-bottom 1px solid $border
+        color white
+        background $btn-success
 
 @keyframes shake
     0%, 100%
