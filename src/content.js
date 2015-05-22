@@ -47,7 +47,7 @@
             bandcamp: {
                 url: /^https?:\/\/.*?\.bandcamp\.com\/track\/(.*)/i,
                 options: {
-                    container: 'inline_player',
+                    container: '.inline_player',
                     classes: ['compound-button', 'follow-unfollow'],
                     style: {
                         'margin-top': '20px'

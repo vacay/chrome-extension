@@ -54,8 +54,7 @@ module.exports = function (grunt) {
 
                         //ngModules
                         'components/angular-route/angular-route.min.js',
-                        'components/angular-animate/angular-animate.min.js',
-                        'components/angular-once/once.js'
+                        'components/angular-animate/angular-animate.min.js'
                     ]
                 }
             },
