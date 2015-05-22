@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "vacay",
-    "version": "0.1.4",
+    "version": "0.1.5",
     "description": "An extension for a music blogging platform with discovery services & cloud-based library.",
     "icons": {
         "128": "assets/img/icon-128.png"
@@ -12,15 +12,17 @@
         "default_popup": "index.html"
     },
     "background": {
-	"scripts": ["background.js"]
+        "scripts": [
+            "background.js"
+        ]
     },
     "minimum_chrome_version": "29",
     "permissions": [
         "storage",
         "cookies",
         "tabs",
-	"http://*/",
-	"https://*/"
+        "http://*/",
+        "https://*/"
     ],
     "content_security_policy": "script-src 'self' https://cdn.segment.io https://www.google-analytics.com https://cdn.mxpnl.com; object-src 'self'",
     "short_name": "vacay"
