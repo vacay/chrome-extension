@@ -86,21 +86,22 @@
             });
         },
 
-        loadVitamin: function(url) {
+        loadVitamin: function() {
             var self = this;
+            this.button.innerHTML = 'importing...';
+
             axios({
                 url: 'https://api.vacay.io/v1/vitamin',
                 method: 'post',
                 params: {
-                    url: url,
+                    url: window.location.href,
                     token: self.token
                 }
             }).then(function (response) {
                 console.log(response);
 
                 self.vitamin = response.data.data;
-                self.button.innerHTML = self.isCrated() ? 'saved' : 'save to vacay.io';
-                self.button.addEventListener('click', self.toggleCrate.bind(self));
+                self.button.innerHTML = self.isCrated() ? 'uncrate' : 'crate on vacay.io';
             }).catch(function (response) {
                 if (response instanceof Error) {
                     console.log('Error', response.message);
@@ -124,7 +125,7 @@
                 }
             }).then(function(response) {
                 console.log(response);
-                self.button.innerHTML = 'saved';
+                self.button.innerHTML = 'uncrate';
                 self.vitamin.craters.push({
                     username: self.username
                 });
@@ -150,7 +151,7 @@
                 }
             }).then(function(response) {
                 console.log(response);
-                self.button.innerHTML = 'save to vacay.io';
+                self.button.innerHTML = 'crate on vacay.io';
                 for (var i=0; i<self.vitamin.craters.length; i++) {
                     if (self.vitamin.craters[i].username === self.username) {
                         self.vitamin.craters.splice(i,1);
@@ -186,15 +187,20 @@
         },
 
         insertButton: function(options) {
-            this.button.innerHTML = 'loading...';
+            this.button.innerHTML = 'import to vacay.io';
             this.container = document.querySelector(options.container);
             DOMTokenList.prototype.add.apply(this.button.classList, options.classes);
             for(var style in options.style) {
                 if (options.style.hasOwnProperty(style)) this.button.style[style] = options.style[style];
             }
             this.container.appendChild(this.button);
-            this.loadVitamin(window.location.href);
+            this.button.addEventListener('click', this.handleClick.bind(this));
         },
+
+	handleClick: function() {
+	    if (this.vitamin) this.toggleCrate();
+	    else this.loadVitamin();
+	},
 
         evaluate: function() {
             for (var page in this.pages) {
