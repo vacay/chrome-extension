@@ -24,7 +24,7 @@
 	    if (c) c.remove();
 	    var links = document.querySelectorAll('a.vacay-crx-link');
 	    Elem.each(links, this.disableLink.bind(this));
-	    this.button.remove();
+	    if (this.button) this.button.remove();
 
 	    var covers = document.querySelectorAll('.vacay-crx-link-cover');
 	    Elem.each(covers, function(c) { c.remove(); });

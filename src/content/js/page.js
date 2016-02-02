@@ -7,18 +7,11 @@
 })(this, function() {
 
     return {
-        vitamin: null,
-	
         container: null,
         button: null,
 
 	handleClick: function() {
             var self = this;
-
-	    if (self.vitamin) {
-		Links.show(self.vitamin);
-		return;
-	    }
 
             self.button.innerHTML = 'importing...';
 
@@ -29,9 +22,8 @@
 		    return;
 		}
 
-                self.vitamin = vitamin;
                 self.button.innerHTML = 'import to vacay.io';
-		Links.show(self.vitamin);
+		Links.show(vitamin);
 
 	    });
 	},
