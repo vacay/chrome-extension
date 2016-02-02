@@ -24,8 +24,7 @@
 	    if (c) c.remove();
 	    var links = document.querySelectorAll('a.vacay-crx-link');
 	    Elem.each(links, this.disableLink.bind(this));
-	    this.button.onclick = this.evaluate.bind(this);
-	    this.button.innerHTML = 'import to vacay';
+	    this.button.remove();
 
 	    var covers = document.querySelectorAll('.vacay-crx-link-cover');
 	    Elem.each(covers, function(c) { c.remove(); });
@@ -138,20 +137,17 @@
 	},
 	insertImportButton: function() {
 	    if (document.getElementById('vacay-crx-button')) return;
-	    var self = this;	    
-	    self.button = Elem.create({ id: 'vacay-crx-button', text: 'Import to Vacay' });
-	    self.button.onclick = function() {
-		self.evaluate();
-	    };
-	    document.body.appendChild(self.button);
+	    this.button = Elem.create({ id: 'vacay-crx-button', text: 'scanning...' });
+	    document.body.appendChild(this.button);
 	},	
 	evaluate: function() {
 	    this._listener = this.handleClick.bind(this);
-	    this.button.innerHTML = 'scanning...';	    
+
+	    this.insertImportButton();
 	    
 	    var self = this;
 	    var links = document.links;
-	    var foundNone = true;
+	    var count = 0;
 
 	    var hostname = window.location.hostname;
 	    if (hostname.indexOf('bandcamp.com') !== -1) hostname = 'bandcamp.com';
@@ -164,22 +160,25 @@
 		    for (var h in Vacay.hosts) {
 			if (Vacay.hosts.hasOwnProperty(h) && Vacay.hosts[h].url.test(url)) {
 			    self.enableLink(link);
-			    foundNone = false;
+			    count++;
 			}
 		    }
 		} else if (host.url.test(url)) {
 		    self.enableLink(link);
-		    foundNone = false;		    
+		    count++;
 		}
 	    });
 
-	    if (foundNone) {
-		this.button.innerHTML = 'nothing found';		
-	    } else {
+	    if (count) {
 		this.button.onclick = this.cleanup.bind(this);
 		this.button.innerHTML = 'cancel import';
-		console.log(this.button.innerHTML);
-	    }		
+	    } else {
+		this.button.remove();
+	    }
+
+	    chrome.runtime.sendMessage({
+		count: count
+	    });
 	}
     };
 });

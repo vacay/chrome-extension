@@ -1,3 +1,0 @@
-.notifications(ng-controller="NotificationCtrl", ng-show="notifications.length")
-    notification.transition(ng-repeat="notification in notifications track by $index", type="notification.type", close="closeNotification($index)", notification-id="notification.id")
-        .notification-content {{notification.msg}}

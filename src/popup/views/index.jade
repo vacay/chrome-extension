@@ -7,7 +7,6 @@ html(ng-csp)
         script(src='analytics.js')
 
     body.ng-cloak(ng-show="initialized")
-        include notification
         ng-switch(on="authenticated")
 
             .auth(ng-switch-when="false", ng-controller="SigninCtrl", ng-class="{shake: shake}")
@@ -18,14 +17,8 @@ html(ng-csp)
                         input(name="password", type="password", placeholder="Password", ng-model="password", required)
                     button.submit.btn(type='submit', ng-hide="signinForm.$invalid") Sign In
 
-            main(ng-switch-when="true", ng-controller="PageCtrl")
+            main(ng-switch-when="true")
                 ng-progress-circular(ng-show="loading")
-                ul.list(ng-hide="loading")
-                    li
-                        input.pill(placeholder="filter", ng-model="filter.text")
-                    li.item(ng-repeat="vitamin in page.vitamins | filter: filter.text", vitamin)
-                .empty(ng-show="!page.vitamins.length && !loading") No Vitamins
-
                 footer
                     span.user(ng-bind="username")
                     a.sign-out(ng-click="signout()") Signout
