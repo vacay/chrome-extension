@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "vacay",
-    "version": "0.1.6",
+    "version": "0.1.7",
     "description": "An extension for a music blogging platform with discovery services & cloud-based library.",
     "icons": {
         "128": "assets/img/icon-128.png"
@@ -16,11 +16,20 @@
             "background.js"
         ]
     },
-    "content_scripts": [{
-	"matches": [ "https://*/*", "http://*/*" ],
-	"exclude_matches": ["*://*.vacay.io/*" ],
-	"css": ["content.css"]
-    }],
+    "content_scripts": [
+        {
+            "matches": [
+                "https://*/*",
+                "http://*/*"
+            ],
+            "exclude_matches": [
+                "*://*.vacay.io/*"
+            ],
+            "css": [
+                "content.css"
+            ]
+        }
+    ],
     "minimum_chrome_version": "29",
     "permissions": [
         "storage",
