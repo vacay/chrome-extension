@@ -16,6 +16,11 @@
             "background.js"
         ]
     },
+    "content_scripts": [{
+	"matches": [ "https://*/*", "http://*/*" ],
+	"exclude_matches": ["*://*.vacay.io/*" ],
+	"css": ["content.css"]
+    }],
     "minimum_chrome_version": "29",
     "permissions": [
         "storage",

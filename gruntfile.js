@@ -29,16 +29,20 @@ module.exports = function (grunt) {
                 'include css': true
             },
             compile: {
-                files: {
-                    'tmp/app.css': 'src/css/*.styl'
-                }
+                files: [{
+                    'tmp/popup.css': 'src/popup/css/*.styl'
+                }, {
+		    'tmp/content.css': 'src/content/css/*.styl'
+		}]
             }
         },
         cssmin: {
             compress: {
-                files: {
-                    'tmp/app.css': 'tmp/app.css'
-                }
+                files: [{
+                    'tmp/popup.css': 'tmp/popup.css'
+                }, {
+		    'tmp/content.css': 'tmp/content.css'
+		}]
             }
         },
 
@@ -60,17 +64,22 @@ module.exports = function (grunt) {
             },
             js: {
                 files: {
-                    'tmp/app.js' : ['src/ngApp.js', 'src/js/**/*.js', 'src/main.js']
+                    'tmp/popup.js' : ['src/popup/ngApp.js', 'src/popup/js/**/*.js', 'src/popup/main.js']
                 }
             },
+	    content: {
+		files: {
+		    'tmp/content.js': ['src/content/js/**/*.js', 'src/content/index.js']
+		}
+	    },
             development: {
                 files: {
-                    'tmp/app.js': ['config/development.js', 'tmp/app.js']
+                    'tmp/popup.js': ['config/development.js', 'tmp/popup.js']
                 }
             },
             production: {
                 files: {
-                    'tmp/app.js': ['config/production.js', 'tmp/app.js']
+                    'tmp/popup.js': ['config/production.js', 'tmp/popup.js']
                 }
             }
 
@@ -89,16 +98,21 @@ module.exports = function (grunt) {
             },
             js: {
                 files: {
-                    'tmp/app.js': ['tmp/app.js']
+                    'tmp/popup.js': ['tmp/popup.js']
                 }
-            }
+            },
+	    content: {
+		files: {
+		    'tmp/content.js': ['tmp/content.js']
+		}
+	    }
         },
 
         /************************ HTML ************************/
         jade: {
             index: {
                 files: [{
-                    'tmp/index.html': ['src/views/index.jade']
+                    'tmp/index.html': ['src/popup/views/index.jade']
                 }]
             },
             partials: {
@@ -106,7 +120,7 @@ module.exports = function (grunt) {
                     expand: true,
                     src: ['partials/**/*.jade', 'layouts/*.jade'],
                     dest: 'tmp/',
-                    cwd: 'src/views/',
+                    cwd: 'src/popup/views/',
                     ext: '.html'
                 }]
             }
@@ -169,20 +183,23 @@ module.exports = function (grunt) {
                     {
                         expand: true,
                         flatten: true,
-                        src: ['tmp/app.js', 'tmp/vendor.js', 'src/analytics.js', 'src/content.js', 'components/axios/dist/axios.standalone.min.js', 'src/background.js'],
+                        src: ['tmp/popup.js', 'tmp/vendor.js', 'src/analytics.js', 'tmp/content.js', 'src/background.js'],
                         dest: 'dist/'
                     }
                 ]
             },
             css: {
-                files: [
-                    {
-                        expand: true,
-                        flatten: true,
-                        src: 'tmp/app.css',
-                        dest: 'dist/'
-                    }
-                ]
+                files: [{
+                    expand: true,
+                    flatten: true,
+                    src: 'tmp/popup.css',
+                    dest: 'dist/'
+                }, {
+		    expand: true,
+		    flatten: true,
+		    src: 'tmp/content.css',
+		    dest: 'dist/'
+		}]
             }
         },
 
@@ -214,16 +231,16 @@ module.exports = function (grunt) {
         },
         watch: {
             index: {
-                files: 'src/views/**/*.jade',
+                files: 'src/popup/views/**/*.jade',
                 tasks: ['clean:index', 'jade', 'inline_angular_templates', 'copy:html']
             },
             css: {
-                files: 'src/css/*.styl',
+                files: ['src/popup/css/*.styl', 'src/content/css/*.styl'],
                 tasks: ['clean:css', 'stylus', 'cssmin', 'copy:css', 'copy:html']
             },
             js: {
                 files: 'src/**/*.js',
-                tasks: ['clean:js', 'concat:vendor', 'concat:js', 'concat:production', 'copy:js', 'copy:html']
+                tasks: ['clean:js', 'concat:vendor', 'concat:js', 'concat:content', 'concat:production', 'copy:js', 'copy:html']
             }
         }
     });
@@ -250,6 +267,7 @@ module.exports = function (grunt) {
 
         'concat:vendor',
         'concat:js',
+	'concat:content',
         'concat:production',
         'uglify',
 
@@ -270,6 +288,7 @@ module.exports = function (grunt) {
 
         'concat:vendor',
         'concat:js',
+	'concat:content',
         'concat:development',
 
         'jade',

@@ -44,6 +44,7 @@ app.factory('Auth', ['$http', 'User', '$rootScope', 'api', '$window', '$log', fu
 
         signout: function () {
             delete $window.localStorage.token;
+            chrome.storage.local.remove(['token', 'username']);
             User.deauthenticate();
             analytics.track('signout');
         }
