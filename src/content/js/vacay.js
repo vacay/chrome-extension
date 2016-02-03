@@ -14,6 +14,7 @@
 
             'soundcloud.com': {
                 url:/^(?:https?:\/\/)?(?:(?:(?:www\.|m\.)?soundcloud\.com\/(?!pages|tags|charts|popular|for|search)([\w\d-]+)\/(?!sets|reposts|recommended|groups|tracks|following|followers|comments|favorites|likes)([\w\d-]+)\/?(?!recommended|sets|likes|reposts|comments)([\w\d-]+)(?:$|[?#])([^?]+?)?(?:[?].*)?$))/i,
+		embed: /^(?:https?:\/\/)?(?:player\.|w\.)?soundcloud\.com\/(?:(?:player)|(?:player.swf))\/?\?(.+)?(?:url=)(.+)?$/i,
                 options: {
                     container: '.listenEngagement__footer .listenEngagement__actions .sc-button-group',
                     classes: ['sc-button', 'sc-button-medium', 'sc-button-responsive']
@@ -22,6 +23,7 @@
 
             'www.youtube.com': {
                 url: /^((?:https?:\/\/|\/\/)(?:(?:(?:(?:\w+\.)?[yY][oO][uU][tT][uU][bB][eE](?:-nocookie)?\.com\/)(?:.*?\#\/)?(?:(?:(?:v|embed|e)\/(?!videoseries))|(?:(?:(?:watch|movie)(?:_popup)?(?:\.php)?\/?)?(?:\?|\#!?)(?:.*?&)?v=)))))?([0-9A-Za-z_-]{11})(?!.*?&list=)(.+)?$/i,
+		embed: /^((?:https?:\/\/|\/\/)(?:(?:(?:(?:\w+\.)?[yY][oO][uU][tT][uU][bB][eE](?:-nocookie)?\.com\/)(?:.*?\#\/)?(?:(?:(?:v|embed|e)\/(?!videoseries))|(?:(?:(?:watch|movie)(?:_popup)?(?:\.php)?\/?)?(?:\?|\#!?)(?:.*?&)?v=)))))?([0-9A-Za-z_-]{11})(?!.*?&list=)(.+)?$/i,
                 options: {
                     container: '.watch-action-buttons .watch-secondary-actions',
                     classes: ['yt-uix-button', 'yt-uix-button-size-default', 'yt-uix-button-opacity']
@@ -30,6 +32,7 @@
 
             'www.mixcloud.com': {
                 url: /^(?:https?:\/\/)?(?:www\.)?mixcloud\.com\/(?!discover|favorites|listens|followers|following|uploads|playlists)([^/]+)\/(?!competitions|categories|tag|groups|previews|widget)([^/]+)\/?$/i,
+		embed: /^(?:https?:\/\/)?(?:www\.)?mixcloud\.com\/widget\/iframe\/?\?(.+)?(?:feed=)(.+)?$/i,
                 options: {
                     container: '.cloudcast-actions',
                     classes: ['button']

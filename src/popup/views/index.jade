@@ -19,6 +19,7 @@ html(ng-csp)
 
             main(ng-switch-when="true")
                 ng-progress-circular(ng-show="loading")
+                .message(ng-bind="message")
                 footer
                     span.user(ng-bind="username")
                     a.sign-out(ng-click="signout()") Signout

@@ -26,7 +26,7 @@
 	    Elem.each(links, this.disableLink.bind(this));
 	    if (this.button) this.button.remove();
 
-	    var covers = document.querySelectorAll('.vacay-crx-link-cover');
+	    var covers = document.querySelectorAll('.vacay-crx-cover');
 	    Elem.each(covers, function(c) { c.remove(); });
 	},
 	show: function(vitamin) {
@@ -99,17 +99,14 @@
 
 	    document.body.appendChild(container);
 	},	
-	handleClick: function(e) {
+	handleClick: function(url, e) {
 	    var self = this;
 	    e.preventDefault();
 	    e.stopImmediatePropagation();
 	    e.stopPropagation();	    
 	    e.cancelBubble = true;
 
-	    var link = e.target.href || Elem.getClosest(e.target, '[href]');
-	    console.log(link);
-
-	    var url = canonicalize(link.href);
+	    url = canonicalize(url);
 	    Vitamin.create(url, function(err, vitamin) {
 		if (err) {
 		    console.log('error:', err);
@@ -131,22 +128,33 @@
 	    link.style.position = 'relative';
 	    link.classList.add('vacay-crx-link');	    
 	    
-	    var cover = Elem.create({ tag: 'span', className: 'vacay-crx-link-cover' });
-	    cover.addEventListener('click', this._listener);
+	    var cover = Elem.create({ tag: 'span', className: 'vacay-crx-cover' });
+	    cover.addEventListener('click', this.handleClick.bind(this, link.href));
 	    link.appendChild(cover);
 	},
-	insertImportButton: function() {
+	enableIframe: function(iframe) {
+	    var container = Elem.create({ className: 'vacay-crx-iframe-container' });
+
+	    iframe.parentNode.insertBefore(container, iframe);
+	    iframe.parentNode.removeChild(iframe);
+	    container.appendChild(iframe);
+
+	    var cover = Elem.create({ className: 'vacay-crx-cover' });
+	    cover.addEventListener('click', this.handleClick.bind(this, iframe.src));
+	    container.appendChild(cover);
+	},
+	insertCancelButton: function() {
 	    if (document.getElementById('vacay-crx-button')) return;
 	    this.button = Elem.create({ id: 'vacay-crx-button', text: 'scanning...' });
 	    document.body.appendChild(this.button);
 	},	
 	evaluate: function() {
-	    this._listener = this.handleClick.bind(this);
 
-	    this.insertImportButton();
+	    this.insertCancelButton();
 	    
 	    var self = this;
 	    var links = document.links;
+	    var iframes = document.querySelectorAll('iframe');
 	    var count = 0;
 
 	    var hostname = window.location.hostname;
@@ -168,6 +176,18 @@
 		    count++;
 		}
 	    });
+
+	    if (!host) {
+		Elem.each(iframes, function(iframe) {
+		    console.log(iframe);
+		    for (var h in Vacay.hosts) {
+			if (Vacay.hosts.hasOwnProperty(h) && Vacay.hosts[h].embed && Vacay.hosts[h].embed.test(iframe.src)) {
+			    self.enableIframe(iframe);
+			    count++;
+			}
+		    }
+		});
+	    }
 
 	    if (count) {
 		this.button.onclick = this.cleanup.bind(this);

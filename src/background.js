@@ -9,8 +9,7 @@ var callback = function(tabId, changeInfo, tab) {
     if (chromeRe.test(tab.url)) return;
     if (vacayRe.test(tab.url)) return;
 
-    if (tab.status === 'complete')
-	chrome.tabs.executeScript(null, { file: 'content.js' });
+    chrome.tabs.executeScript(null, { file: 'content.js' });
 };
 
 chrome.tabs.onUpdated.addListener(callback);

@@ -1,21 +1,11 @@
 /* global app, analytics */
 
-app.run(['$rootScope', 'Auth', '$window', 'User', function ($rootScope, Auth, $window, User) {
-
-    chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-	console.log(sender.tab ?
-		    "from a content script:" + sender.tab.url :
-		    "from the extension");
-
-	$rootScope.$apply(function() {
-	    $rootScope.loading = false;
-	});
-	window.close();
-    });
+app.run(['$rootScope', 'Auth', '$window', 'User', '$timeout', function ($rootScope, Auth, $window, User, $timeout) {
 
     $rootScope.initialized = false;
     $rootScope.authenticated = false;
     $rootScope.username = null;
+    $rootScope.message = null;
     
     $rootScope.$on('auth:initialized', function() {
 	$rootScope.initialized = true;
@@ -31,10 +21,19 @@ app.run(['$rootScope', 'Auth', '$window', 'User', function ($rootScope, Auth, $w
 		command: 'evaluate_link',
 		token: $window.localStorage.token,
 		username: User.username
-	    }, function(response) {
-		console.log(response.farewell);
+	    }, function(res) {
+		if (res.close) {
+		    $rootScope.$apply(function() {
+			$rootScope.loading = false;
+		    });
+		    window.close();
+		}
 	    });
 	});
+
+	$timeout(function() {
+	    $rootScope.message = 'Page has not finished loading. Retry in a few seconds.';
+	}, 1500);
 
 	analytics.identify(username);
     });
