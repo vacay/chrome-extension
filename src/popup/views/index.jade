@@ -4,25 +4,19 @@ html(ng-csp)
         title.
             vacay:spyder
         link(rel='stylesheet', href='popup.css')
-        script(src='analytics.js')
 
-    body.ng-cloak(ng-show="initialized")
-        ng-switch(on="authenticated")
+    body.not-ready
 
-            .auth(ng-switch-when="false", ng-controller="SigninCtrl", ng-class="{shake: shake}")
-                form(autocomplete='off', ng-submit="signin()", name="signinForm")
-                    .alert.alert-error(ng-class="{'visible' : message}", ng-bind="message")
-                    .inputs
-                        input(name="email", type="email", placeholder="Email", ng-model="email", required)
-                        input(name="password", type="password", placeholder="Password", ng-model="password", required)
-                    button.submit.btn(type='submit', ng-hide="signinForm.$invalid") Sign In
+        form(autocomplete='off', name='signin')
+            .alert
+            .inputs
+                input(name="email", type="email", placeholder="Email", required)
+                input(name="password", type="password", placeholder="Password", required)
+             button(type='submit') Sign In
+         main
+             .message
+             footer
+                 span.user
+                 a.sign-out Signout
 
-            main(ng-switch-when="true")
-                ng-progress-circular(ng-show="loading")
-                .message(ng-bind="message")
-                footer
-                    span.user(ng-bind="username")
-                    a.sign-out(ng-click="signout()") Signout
-
-        script(src='vendor.js')
         script(src='popup.js')

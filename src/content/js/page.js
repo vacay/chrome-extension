@@ -29,11 +29,20 @@
 	},
 	
         insertButton: function(options) {
+	    var self = this;
 	    if (document.getElementById('vacayButton')) return;
+            this.container = document.querySelector(options.container);
+	    if (!this.container) {
+		setTimeout(function() {
+		    self.evaluate();
+		}, 1000);
+		return;
+	    }
+
 	    this.button = document.createElement('button');
 	    this.button.id = 'vacayButton';
             this.button.innerHTML = 'import to vacay.io';
-            this.container = document.querySelector(options.container);
+
             DOMTokenList.prototype.add.apply(this.button.classList, options.classes);
             for(var style in options.style) {
                 if (options.style.hasOwnProperty(style))

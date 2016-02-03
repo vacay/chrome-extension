@@ -1,52 +1,50 @@
-/* global app, chrome, analytics */
+/* global App, chrome, Me */
 
-app.factory('Auth', ['$http', 'User', '$rootScope', 'api', '$window', '$log', function ($http, User, $rootScope, api, $window, $log) {
+(function(root, factory) {
+
+    root.Auth = factory(root);
+
+})(this, function() {
+
+    'use strict';
     return {
-        init: function () {
-            $http.get(api + '/me').success(function (response) {
+        init: function (done) {
+	    App.api('/me').get().success(function(res) {
                 chrome.storage.local.set({
-                    token: $window.localStorage.token,
-                    username: response.data.username
+                    token: window.localStorage.token,
+                    username: res.data.username
                 }, function() {
-                    $log.debug('stored token: ', $window.localStorage.token);
+                    console.debug('stored token: ', window.localStorage.token);
                 });
 
-                User.init(response.data);
-                $rootScope.$broadcast('auth:initialized');
-                analytics.track('init');
-            }).error(function () {
-                $rootScope.$broadcast('auth:initialized');
-                $rootScope.$broadcast('show:landing');
+                Me.init(res.data, done);
+            }).error(function (res) {
+		done(res);
             });
         },
 
-        signin: function (email, password) {
-            $http.post(api + '/auth/signin', {
-                email: email,
-                password: password
-            }).success(function (response) {
+        signin: function (params, cb) {
+	    App.api('/auth/signin').post(params).success(function (res) {
                 chrome.storage.local.set({
-                    token: response.token,
-                    username: response.data.username
+                    token: res.token,
+                    username: res.data.username
                 }, function() {
-                    $log.debug('stored token: ', response.token);
+                    console.debug('stored token: ', res.token);
                 });
-                $window.localStorage.token = response.token;
+                window.localStorage.token = res.token;
 
-                User.init(response.data);
-                analytics.track('signin');
-            }).error(function (response) {
-                delete $window.localStorage.token;
+                Me.init(res.data, cb);
+            }).error(function (res) {
+                delete window.localStorage.token;
                 chrome.storage.local.remove('token');
-                $rootScope.$broadcast('auth:signin:message', response.data);
+		cb(res);
             });
         },
 
         signout: function () {
-            delete $window.localStorage.token;
+            delete window.localStorage.token;
             chrome.storage.local.remove(['token', 'username']);
-            User.deauthenticate();
-            analytics.track('signout');
+            Me.deauthenticate();
         }
     };
-}]);
+});

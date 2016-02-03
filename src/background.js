@@ -9,7 +9,9 @@ var callback = function(tabId, changeInfo, tab) {
     if (chromeRe.test(tab.url)) return;
     if (vacayRe.test(tab.url)) return;
 
-    chrome.tabs.executeScript(null, { file: 'content.js' });
+    chrome.tabs.sendMessage(tabId, {
+	command: 'evaluate_page'
+    });
 };
 
 chrome.tabs.onUpdated.addListener(callback);

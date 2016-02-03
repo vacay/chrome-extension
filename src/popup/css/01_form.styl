@@ -1,9 +1,6 @@
 @import '00_variables.styl'
 @import 'nib'
 
-form
-    position relative
-
 input
 textarea
     width 100%
@@ -24,3 +21,55 @@ textarea
     &:focus
         box-shadow none
         outline none
+
+form
+    position absolute
+    top 50%
+    left 10%
+    width 80%
+    margin-top -66px
+	.inputs
+        border 1px solid $border
+        border-radius 2px
+        input
+            border-bottom 1px solid $border
+        input:not(:first-child)
+            border-bottom none
+	input
+        padding 10px
+	button[type='submit']
+        width 100%
+        padding 10px
+        border-radius 2px
+        margin-top 5px
+        color white
+        background $btn-success
+        border 1px solid transparent
+        border-radius 999em
+
+form:invalid button[type='submit']
+    display none
+
+.alert
+    padding 5px
+    margin 0 0 10px
+    text-align center
+    border-radius 2px
+    background $red
+    color white
+    &:empty
+        display none
+
+@keyframes shake
+    0%, 100%
+        transform translateX(0)
+
+    10%, 30%, 50%, 70%, 90%
+        transform translateX(-10px)
+
+    20%, 40%, 60%, 80%
+        transform translateX(10px)
+
+.shake
+    animation shake 1s
+    animation-fill-mode both

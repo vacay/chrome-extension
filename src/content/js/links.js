@@ -93,8 +93,6 @@
 		});
 
 		list.appendChild(frag);
-
-		console.log(prescriptions);
 	    });
 
 	    document.body.appendChild(container);
@@ -133,15 +131,18 @@
 	    link.appendChild(cover);
 	},
 	enableIframe: function(iframe) {
-	    var container = Elem.create({ className: 'vacay-crx-iframe-container' });
-
-	    iframe.parentNode.insertBefore(container, iframe);
-	    iframe.parentNode.removeChild(iframe);
-	    container.appendChild(iframe);
-
 	    var cover = Elem.create({ className: 'vacay-crx-cover' });
 	    cover.addEventListener('click', this.handleClick.bind(this, iframe.src));
-	    container.appendChild(cover);
+
+	    if (iframe.parentNode.classList.contains('vacay-crx-iframe-container')) {
+		iframe.parentNode.appendChild(cover);
+	    } else {
+		var container = Elem.create({ className: 'vacay-crx-iframe-container' });
+		iframe.parentNode.insertBefore(container, iframe);
+		iframe.parentNode.removeChild(iframe);
+		container.appendChild(iframe);
+		container.appendChild(cover);
+	    }
 	},
 	insertCancelButton: function() {
 	    if (document.getElementById('vacay-crx-button')) return;
@@ -179,7 +180,6 @@
 
 	    if (!host) {
 		Elem.each(iframes, function(iframe) {
-		    console.log(iframe);
 		    for (var h in Vacay.hosts) {
 			if (Vacay.hosts.hasOwnProperty(h) && Vacay.hosts[h].embed && Vacay.hosts[h].embed.test(iframe.src)) {
 			    self.enableIframe(iframe);

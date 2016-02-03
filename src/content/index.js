@@ -18,9 +18,16 @@
     chrome.runtime.onMessage.addListener(function(msg, sender, sendResponse) {
 	if (msg.token) Vacay.token = msg.token;
 	if (msg.username) Vacay.username = msg.username;
-	if (msg.command && (msg.command == 'evaluate_link')) {
-	    if (Vacay.token) Links.evaluate();
+	if (msg.command) {
+	    if (msg.command == 'evaluate_link') {
+		if (Vacay.token) Links.evaluate();
+	    } else if (msg.command == 'evaluate_page') {
+		if (Vacay.token) Page.evaluate();
+	    } else if (msg.command == 'signout') {
+		Vacay.token = null;
+		Vacay.username = null;
+		Links.cleanup();
+	    }
 	}
-	sendResponse({close: true});
     });
 })();
