@@ -13,7 +13,7 @@
         hosts: {
 
             'soundcloud.com': {
-                url:/^(?:https?:\/\/)?(?:(?:(?:www\.|m\.)?soundcloud\.com\/(?!pages|tags|charts|popular|for|search)([\w\d-]+)\/(?!sets|reposts|recommended|groups|tracks|following|followers|comments|favorites|likes)([\w\d-]+)\/?(?!recommended|sets|likes|reposts|comments)([\w\d-]+)(?:$|[?#])([^?]+?)?(?:[?].*)?$))/i,
+                url:/^(?:https?:\/\/)?(?:(?:(?:www\.|m\.)?soundcloud\.com\/(?!pages|tags|charts|popular|for|search|you)([\w\d-]+)\/(?!sets|reposts|recommended|groups|tracks|following|followers|comments|favorites|likes)([\w\d-]+)\/?(?!recommended|sets|likes|reposts|comments)([\w\d-]+)(?:$|[?#])([^?]+?)?(?:[?].*)?$))/i,
 		embed: /^(?:https?:\/\/)?(?:player\.|w\.)?soundcloud\.com\/(?:(?:player)|(?:player.swf))\/?\?(.+)?(?:url=)(.+)?$/i,
                 options: {
                     container: '.listenEngagement__footer .listenEngagement__actions .sc-button-group',

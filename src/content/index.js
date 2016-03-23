@@ -20,7 +20,7 @@
 	if (msg.username) Vacay.username = msg.username;
 	if (msg.command) {
 	    if (msg.command == 'evaluate_link') {
-		if (Vacay.token) Links.evaluate();
+		if (Vacay.token) Links.evaluate(sendResponse);
 	    } else if (msg.command == 'evaluate_page') {
 		if (Vacay.token) Page.evaluate();
 	    } else if (msg.command == 'signout') {

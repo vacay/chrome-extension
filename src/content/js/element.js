@@ -45,7 +45,15 @@
 		for (i = 0; i < opts.childs.length; i++) {
 		    el.appendChild(opts.childs[i] instanceof window.HTMLElement ? opts.childs[i] : this.create(opts.childs[i]));
 		}
-	    }	    
+	    }
+
+	    if (opts.parent) {
+		opts.parent.appendChild(el);
+	    }
+
+	    if (opts.onclick) {
+		el.onclick = opts.onclick;
+	    }
 
 	    return el;
 	},

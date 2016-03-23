@@ -38,8 +38,9 @@
 	    document.body.classList.add('vacay-crx-no-scroll');
 	    
 	    var container = Elem.create({ id: 'vacay-crx-container' });
-	    var close = Elem.create({ id: 'vacay-crx-close' });	    
-	    var content = Elem.create({ id: 'vacay-crx-content' });
+	    var close = Elem.create({ id: 'vacay-crx-close', parent: container });
+	    var overlay = Elem.create({ id: 'vacay-crx-overlay', parent: container });
+	    var content = Elem.create({ id: 'vacay-crx-content', parent: container });
 	    var list = Elem.create({
 		className: 'list' ,
 		attributes: {
@@ -47,10 +48,9 @@
 		}
 	    });
 
-	    container.appendChild(close);
-	    container.appendChild(content);
 	    content.appendChild(Vitamin.render(vitamin));
 
+	    overlay.onclick = this.cleanup.bind(this);
 	    close.onclick = this.cleanup.bind(this);
 
 	    var form = Elem.create({tag: 'form'});
@@ -105,8 +105,14 @@
 	    e.cancelBubble = true;
 
 	    url = canonicalize(url);
+	    Loading.show();
+
 	    Vitamin.create(url, function(err, vitamin) {
+
+		Loading.hide();
+
 		if (err) {
+		    alert('loading error');
 		    console.log('error:', err);
 		    return;
 		}
@@ -149,7 +155,7 @@
 	    this.button = Elem.create({ id: 'vacay-crx-button', text: 'scanning...' });
 	    document.body.appendChild(this.button);
 	},	
-	evaluate: function() {
+	evaluate: function(sendResponse) {
 
 	    this.insertCancelButton();
 	    
@@ -196,7 +202,7 @@
 		this.button.remove();
 	    }
 
-	    chrome.runtime.sendMessage({
+	    sendResponse({
 		count: count
 	    });
 	}
