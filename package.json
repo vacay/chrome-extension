@@ -2,7 +2,7 @@
     "name": "vacay",
     "author": "Admin <admin@vacay.io>",
     "description": "A music blogging platform with discovery services & cloud-based library.",
-    "version": "0.1.12",
+    "version": "0.1.13",
     "private": true,
     "repository": {
         "type": "git",
