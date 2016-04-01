@@ -25,6 +25,22 @@ body.vacay-crx-no-scroll
     margin-bottom 45px
     button
         margin 15px 0
+        + button
+            margin-left 5px
+    .vacay-title
+        outline none
+        &[contenteditable='true']
+            padding 10px 0
+            background yellow
+    .vacay-edit-show
+        display none
+    &.vacay-editable
+        .vacay-edit-hide
+            display none
+        .vacay-edit-show
+            display block
+        button.vacay-edit-show
+            display inline-block
 
 #vacay-crx-button
     fixed bottom right 15px
@@ -91,18 +107,19 @@ body.vacay-crx-no-scroll
 
     button
         background transparent
-        border 1px solid #51b364
         border-radius 999em
         padding 10px
-        display inline-block
         text-align center
-        color #51b364
         font-size 12px
         outline none
-        &.active
-            background #57ad68
-            border-color #57ad68
-            color white
+        border 1px solid $border
+        &.vacay-success
+            border-color #51b364
+            color #51b364
+            &.active
+                background #57ad68
+                border-color #57ad68
+                color white
         &:focus
             outline 0
 
