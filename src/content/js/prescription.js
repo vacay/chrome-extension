@@ -40,6 +40,7 @@
 	    });
 	    var addBtn = Elem.create({
 		tag: 'button',
+		className: 'vacay-success',
 		text: 'Add'
 	    });
 
@@ -47,7 +48,7 @@
 		addBtn.classList.add('active');
 	    }
 
-	    addBtn.onclick = function() {
+	    addBtn.onclick = function(e) {
 		var isActive = addBtn.classList.contains('active');
 		var cb = function(err) {
 		    if (err) addBtn.classList.toggle('active', isActive);
