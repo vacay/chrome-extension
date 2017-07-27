@@ -11,7 +11,7 @@
     return {
 	api: function(path) {
 	    var token = window.localStorage.token;
-	    path = 'https://api.vacay.io/v1' + path;
+	    path = 'https://api.vacay.io:8080/v1' + path;
 	    return {
 		get: function(params) {
 		    params = params || {};
