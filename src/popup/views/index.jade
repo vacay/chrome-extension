@@ -1,0 +1,22 @@
+!!! 5
+html(ng-csp)
+    head
+        title.
+            vacay:spyder
+        link(rel='stylesheet', href='popup.css')
+
+    body.not-ready
+
+        form(autocomplete='off', name='signin')
+            .alert
+            .inputs
+                input(name="email", type="email", placeholder="Email", required)
+                input(name="password", type="password", placeholder="Password", required)
+             button(type='submit') Sign In
+         main
+             .message
+             footer
+                 span.user
+                 a.sign-out Signout
+
+        script(src='popup.js')

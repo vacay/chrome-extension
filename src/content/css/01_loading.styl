@@ -1,0 +1,93 @@
+@import '00_variables.styl'
+@import 'nib'
+
+.vacay-md-loading
+    width 50px
+    height 50px
+    display block
+    position relative
+    margin 0 auto
+    overflow hidden
+
+    .vacay-md-inner
+        width 50px
+        height 50px
+        position relative
+
+        .vacay-md-gap
+            position absolute
+            left 24px
+            right 24px
+            top 0
+            bottom 0
+            border-top 3px solid #d3e478
+            box-sizing border-box
+
+        .vacay-md-left
+        .vacay-md-right
+            position absolute
+            top 0
+            height 50px
+            width 25px
+            overflow hidden
+
+            .vacay-md-half-circle
+                position absolute
+                top 0
+                width 50px
+                height 50px
+                box-sizing border-box
+                border-width 3px
+                border-style solid
+                border-color #d3e478 #d3e478 transparent
+                border-radius 50%
+        .vacay-md-left
+            left 0
+            .vacay-md-half-circle
+                left 0
+                border-right-color transparent
+        .vacay-md-right
+            right 0
+            .vacay-md-half-circle
+                right 0
+                border-left-color transparent
+
+    &.indeterminate .vacay-md-spinner-wrapper
+        animation outer-rotate 2.91667s linear infinite
+        .vacay-md-inner
+            animation sporadic-rotate 5.25s cubic-bezier(0.35, 0, 0.25, 1) infinite
+            .vacay-md-left .vacay-md-half-circle
+            .vacay-md-right .vacay-md-half-circle
+                animation-iteration-count infinite
+                animation-duration 1.3125s
+                animation-timing-function cubic-bezier(0.35, 0, 0.25, 1)
+            .vacay-md-left .vacay-md-half-circle
+                animation-name left-wobble
+            .vacay-md-right .vacay-md-half-circle
+                animation-name right-wobble
+
+    &.determinate .vacay-md-inner .vacay-md-gap
+        border-bottom-width 5px
+        border-bottom-style solid
+
+button > .vacay-md-loading
+    margin 0
+
+.vacay-md-loading-error
+    animation blink 1400ms linear infinite
+    width 50px
+    height 50px
+    display block
+    margin 45px auto
+    border 3px solid red
+    border-radius 999em
+    &:after
+        absolute bottom -50px left right
+        content "Loading Error"
+        padding 10px 15px
+        margin 0 auto
+        width 150px
+        text-align center
+        background red
+        color white
+        border-radius 3px

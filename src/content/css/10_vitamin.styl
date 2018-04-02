@@ -1,0 +1,150 @@
+@import 'nib'
+@import '00_variables.styl'
+
+body.vacay-crx-no-scroll
+    position fixed
+    overflow hidden
+
+.vacay-crx-link
+    pointer-events none
+
+.vacay-crx-cover
+    pointer-events auto
+    absolute top left right bottom
+    width 100%
+    height 100%
+
+.vacay-crx-iframe-container
+    position relative
+    display block
+
+    .vacay-crx-cover
+        background rgba(255,255,0,0.8)
+
+.vacay-crx-vitamin
+    margin-bottom 45px
+    button
+        margin 15px 0
+        + button
+            margin-left 5px
+    .vacay-title
+        outline none
+        &[contenteditable='true']
+            padding 10px 0
+            background yellow
+    .vacay-edit-show
+        display none
+    &.vacay-editable
+        .vacay-edit-hide
+            display none
+        .vacay-edit-show
+            display block
+        button.vacay-edit-show
+            display inline-block
+
+#vacayButton
+    cursor pointer
+
+#vacay-crx-button
+    fixed bottom right 15px
+    padding 5px 10px
+    z-index 2147483647
+    background yellow
+    color #666
+    font-family "Courier New", Courier, monospace
+    font-size 16px
+
+#vacay-crx-close
+    fixed top 25px left 10px
+    z-index 10
+    width 45px
+    hieght 45px
+    border 2px solid $border
+    border-radius 999em
+    &:before
+        content '\0000D7'
+        font-size 30px
+        line-height 10px
+        font-weight 200    
+
+#vacay-crx-container
+    z-index 2147483647
+    position fixed
+    left 0
+    right 0
+    top 0
+    bottom 0
+    background rgba(255,255,255,0.95)
+    overflow-y scroll
+
+#vacay-crx-overlay
+    fixed top left right bottom
+    z-index -1
+
+#vacay-crx-content
+    width 100%
+    max-width 550px
+    margin 35px auto
+    color #333334
+    text-align left
+
+    .vacay-crx-prescription
+        position relative
+        display block
+        padding 15px
+
+        img
+            absolute top 15px left
+            background-color #f0f0f0
+            width 30px
+            height 30px
+            border-radius 999em
+            margin-right 15px
+
+        .body
+            margin-left 45px
+            margin-right 45px
+
+        button
+            absolute top 15px right
+
+    button
+        background transparent
+        border-radius 999em
+        padding 10px
+        text-align center
+        font-size 12px
+        outline none
+        border 1px solid $border
+        &.vacay-success
+            border-color #51b364
+            color #51b364
+            &.active
+                background #57ad68
+                border-color #57ad68
+                color white
+        &:focus
+            outline 0
+
+    form
+        padding 15px
+        margin 0
+        border-bottom 1px solid #999
+
+    input
+        width 100%
+        paddding 0
+        margin 0
+        font-family 'Helvetica Neue Light','Helvetica Neue',Helvetica,Arial,'Lucida Grande',sans-serif
+        font-size 14px
+        border none
+        background transparent
+        outline none
+
+    h2
+        margin 0
+        padding 0
+        font-family 'Helvetica Neue Light','Helvetica Neue',Helvetica,Arial,'Lucida Grande',sans-serif
+        font-size 14px
+        font-weight 400
+        color #333334
